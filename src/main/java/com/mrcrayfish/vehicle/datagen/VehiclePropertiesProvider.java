@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Author: MrCrayfish
@@ -69,15 +70,14 @@ public abstract class VehiclePropertiesProvider implements DataProvider
     public abstract void registerProperties();
 
     @Override
-    public void run(@NotNull CachedOutput cache) throws IOException
-    {
+    public CompletableFuture<?> run(@NotNull CachedOutput cache) {
         this.vehiclePropertiesMap.clear();
         this.registerProperties();
         this.vehiclePropertiesMap.forEach((id, properties) ->
         {
             String modId = id.getNamespace();
             String vehicleId = id.getPath();
-            Path path = this.generator.getOutputFolder().resolve("data/" + modId + "/vehicles/properties/" + vehicleId + ".json");
+            Path path = this.generator.getPackOutput().getOutputFolder().resolve("data/" + modId + "/vehicles/properties/" + vehicleId + ".json");
             try
             {
                 if(!Files.exists(path))
@@ -94,7 +94,7 @@ public abstract class VehiclePropertiesProvider implements DataProvider
             if(properties.getCosmetics().isEmpty())
                 return;
 
-            path = this.generator.getOutputFolder().resolve("data/" + modId + "/vehicles/cosmetics/" + vehicleId + ".json");
+            path = this.generator.getPackOutput().getOutputFolder().resolve("data/" + modId + "/vehicles/cosmetics/" + vehicleId + ".json");
             try
             {
                 JsonObject object = new JsonObject();
@@ -136,6 +136,7 @@ public abstract class VehiclePropertiesProvider implements DataProvider
                 LOGGER.error("Couldn't save vehicle cosmetics to {}", path, e);
             }
         });
+        return null;
     }
 
     @Nonnull

@@ -1,8 +1,6 @@
 package com.mrcrayfish.vehicle.client.raytrace;
 
 import com.google.common.collect.Lists;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.client.model.ComponentModel;
 import com.mrcrayfish.vehicle.client.model.VehicleModels;
 import com.mrcrayfish.vehicle.client.raytrace.data.ItemStackRayTraceData;
@@ -13,6 +11,8 @@ import com.mrcrayfish.vehicle.common.entity.Transform;
 import com.mrcrayfish.vehicle.entity.VehicleEntity;
 import com.mrcrayfish.vehicle.entity.properties.PoweredProperties;
 import com.mrcrayfish.vehicle.entity.properties.VehicleProperties;
+import com.mrcrayfish.vehicle.util.port.Matrix4f;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -160,7 +160,7 @@ public class TransformHelper
         createPartTransforms(VehicleModels.KEY_HOLE, ignitionTransform, parts, globalTransforms, null);
     }
 
-    public static Matrix4f createMatrixFromTransformsForPart(List<MatrixTransform> transforms)
+    public static com.mrcrayfish.vehicle.util.port.Matrix4f createMatrixFromTransformsForPart(List<MatrixTransform> transforms)
     {
         return createMatrixFromTransforms(transforms, -0.5F, -0.5F, -0.5F);
     }
@@ -170,10 +170,10 @@ public class TransformHelper
         return createMatrixFromTransforms(transforms, 0.0F, -0.5F, 0.0F);
     }
 
-    public static Matrix4f createMatrixFromTransforms(List<MatrixTransform> transforms, float xOffset, float yOffset, float zOffset)
+    public static com.mrcrayfish.vehicle.util.port.Matrix4f createMatrixFromTransforms(List<MatrixTransform> transforms, float xOffset, float yOffset, float zOffset)
     {
-        Matrix4f matrix = new Matrix4f();
-        matrix.setIdentity();
+        com.mrcrayfish.vehicle.util.port.Matrix4f matrix = new com.mrcrayfish.vehicle.util.port.Matrix4f();
+        matrix.identity();
         transforms.forEach(t -> t.transform(matrix));
         MatrixTransform.translate(xOffset, yOffset, zOffset).transform(matrix);
         return matrix;

@@ -21,7 +21,7 @@ public class RecipeColorSprayCan extends CustomRecipe
 {
     public RecipeColorSprayCan(ResourceLocation id)
     {
-        super(id);
+        super(id, CraftingBookCategory.MISC);
     }
 
     @Override

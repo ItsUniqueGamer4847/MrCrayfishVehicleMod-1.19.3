@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 /**
  * Author: MrCrayfish
@@ -21,7 +22,7 @@ public class IconButton extends Button implements IToolbarLabel
 
     public IconButton(int width, int height, @Nullable IconProvider icon, Component label, Button.OnPress onPress)
     {
-        super(0, 0, width, height, Component.empty(), onPress);
+        super(0, 0, width, height, Component.empty(), onPress, Supplier::get);
         this.icon = icon;
         this.label = label;
     }
@@ -63,12 +64,12 @@ public class IconButton extends Button implements IToolbarLabel
         if(this.icon != null)
         {
             RenderSystem.setShaderTexture(0, this.icon.getTextureLocation());
-            this.drawIcon(this.x + this.width / 2 - combinedWidth / 2, this.y + 5, this.icon.getU(), this.icon.getV());
+            this.drawIcon(this.getX() + this.width / 2 - combinedWidth / 2, this.getY() + 5, this.icon.getU(), this.icon.getV());
         }
 
         if(!message.equals(Component.empty()))
         {
-            font.drawShadow(matrixStack, message, this.x + this.width / 2 - combinedWidth / 2 + 10 + (this.icon == null ? 0 : 4), this.y + 6, 0xFFFFFF);
+            font.drawShadow(matrixStack, message, this.getX() + this.width / 2 - combinedWidth / 2 + 10 + (this.icon == null ? 0 : 4), this.getY() + 6, 0xFFFFFF);
         }
     }
 

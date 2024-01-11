@@ -49,16 +49,6 @@ public class JerryCanItem extends Item
     }
 
     @Override
-    public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> items)
-    {
-        if(this.allowedIn(group))
-        {
-            ItemStack stack = new ItemStack(this);
-            items.add(stack);
-        }
-    }
-
-    @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltips, @NotNull TooltipFlag flag)
     {
         if(Screen.hasShiftDown())

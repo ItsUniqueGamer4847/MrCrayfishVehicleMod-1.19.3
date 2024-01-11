@@ -2,6 +2,7 @@ package com.mrcrayfish.vehicle.client.model;
 
 import com.mrcrayfish.vehicle.Reference;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class VehicleModels
 {
@@ -109,5 +110,5 @@ public class VehicleModels
     public static final ComponentModel SOFA_HELICOPTER_SKID = LOADER.create("vehicle/sofa_helicopter_skid");
 
     // Special use to reference existing models
-    public static final ComponentModel RED_SOFA = new ComponentModel(new ModelResourceLocation("cfm:red_sofa", "inventory"));
+    public static final ComponentModel RED_SOFA = new ComponentModel(new ModelResourceLocation(new ResourceLocation("cfm:red_sofa"), "inventory"));
 }

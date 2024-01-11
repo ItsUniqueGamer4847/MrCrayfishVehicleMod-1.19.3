@@ -212,7 +212,7 @@ public class ClientHandler
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void registerScreens(RegisterEvent event)
     {
-        event.register(Registry.MENU_REGISTRY, helper -> {
+        event.register(ForgeRegistries.MENU_TYPES.getRegistryKey(), helper -> {
             MenuScreens.register(ModContainers.FLUID_EXTRACTOR.get(), FluidExtractorScreen::new);
             MenuScreens.register(ModContainers.FLUID_MIXER.get(), FluidMixerScreen::new);
             MenuScreens.register(ModContainers.EDIT_VEHICLE.get(), EditVehicleScreen::new);

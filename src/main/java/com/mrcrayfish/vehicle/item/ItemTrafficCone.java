@@ -24,7 +24,7 @@ public class ItemTrafficCone extends LazyBlockItem<Block>
 {
     public ItemTrafficCone(Supplier<Block> block)
     {
-        super(block, new Item.Properties().tab(VehicleMod.CREATIVE_TAB));
+        super(block, new Item.Properties());
     }
 
     @Override

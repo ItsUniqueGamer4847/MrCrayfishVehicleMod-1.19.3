@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
 import com.mrcrayfish.vehicle.Config;
 import com.mrcrayfish.vehicle.Reference;
 import com.mrcrayfish.vehicle.client.render.AbstractLandVehicleRenderer;
@@ -32,7 +31,6 @@ import com.mrcrayfish.vehicle.util.CommonUtils;
 import com.mrcrayfish.vehicle.util.InventoryUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
@@ -48,11 +46,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import com.mrcrayfish.vehicle.util.port.Button;
+import org.joml.Quaternionf;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -105,18 +107,18 @@ public class WorkstationScreen extends AbstractContainerScreen<WorkstationContai
         this.addRenderableWidget(new Button(this.leftPos + 9, this.topPos + 18, 15, 20, Component.literal("<"), button -> {
             this.loadVehicle(Math.floorMod(currentVehicle - 1,  this.vehicleTypes.size()));
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-        }));
+        }, Supplier::get));
 
         this.addRenderableWidget(new Button(this.leftPos + 153, this.topPos + 18, 15, 20, Component.literal(">"), button -> {
             this.loadVehicle(Math.floorMod(currentVehicle + 1,  this.vehicleTypes.size()));
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-        }));
+        }, Supplier::get));
 
         this.btnCraft = this.addRenderableWidget(new Button(this.leftPos + 172, this.topPos + 6, 97, 20, Component.translatable("gui.vehicle.craft"), button -> {
             String registryName = this.vehicleTypes.get(currentVehicle).getDescriptionId();
             Objects.requireNonNull(registryName, "Vehicle registry name must not be null!");
             PacketHandler.getPlayChannel().sendToServer(new MessageCraftVehicle(registryName));
-        }));
+        }, Supplier::get));
 
         this.btnCraft.active = false;
         this.checkBoxMaterials = this.addRenderableWidget(new CheckBox(this.leftPos + 172, this.topPos + 51, Component.translatable("gui.vehicle.show_remaining")));
@@ -407,8 +409,8 @@ public class WorkstationScreen extends AbstractContainerScreen<WorkstationContai
                 float scale = this.prevVehicleScale + (this.vehicleScale - this.prevVehicleScale) * partialTicks;
                 matrixStack.scale(scale, scale, scale);
 
-                Quaternion quaternion = Axis.POSITIVE_X.rotationDegrees(-5F);
-                Quaternion quaternion1 = Axis.POSITIVE_Y.rotationDegrees(-(this.minecraft.player.tickCount + partialTicks));
+                Quaternionf quaternion = Axis.POSITIVE_X.rotationDegrees(-5F);
+                Quaternionf quaternion1 = Axis.POSITIVE_Y.rotationDegrees(-(this.minecraft.player.tickCount + partialTicks));
                 quaternion.mul(quaternion1);
                 matrixStack.mulPose(quaternion);
 

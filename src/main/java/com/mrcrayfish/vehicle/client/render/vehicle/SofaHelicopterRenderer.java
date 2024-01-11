@@ -1,7 +1,6 @@
 package com.mrcrayfish.vehicle.client.render.vehicle;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.client.model.VehicleModels;
 import com.mrcrayfish.vehicle.client.raytrace.MatrixTransform;
 import com.mrcrayfish.vehicle.client.raytrace.RayTraceTransforms;
@@ -11,6 +10,7 @@ import com.mrcrayfish.vehicle.client.render.Axis;
 import com.mrcrayfish.vehicle.entity.properties.VehicleProperties;
 import com.mrcrayfish.vehicle.entity.vehicle.SofacopterEntity;
 import com.mrcrayfish.vehicle.init.ModEntities;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.EntityType;

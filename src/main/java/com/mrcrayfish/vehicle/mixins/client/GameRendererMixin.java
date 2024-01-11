@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GameRenderer.class)
 public class GameRendererMixin
 {
-    @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lcom/mojang/math/Matrix3f;copy()Lcom/mojang/math/Matrix3f;"))
+    @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack$Pose;pose()Lorg/joml/Matrix4f;"))
     private void onRenderLevel$getYRot(float delta, long time, PoseStack matrices, CallbackInfo ci)
     {
         CameraHandler.setupVehicleCamera(matrices);

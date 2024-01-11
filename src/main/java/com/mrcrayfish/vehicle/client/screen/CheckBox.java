@@ -41,12 +41,12 @@ public class CheckBox extends AbstractWidget
     {
         Minecraft minecraft = Minecraft.getInstance();
         RenderSystem.setShaderTexture(0, GUI);
-        this.blit(matrices, this.x, this.y, 0, 0, 8, 8);
+        this.blit(matrices, this.getX(), this.getY(), 0, 0, 8, 8);
         if(this.toggled)
         {
-            this.blit(matrices, this.x, this.y - 1, 8, 0, 9, 8);
+            this.blit(matrices, this.getX(), this.getY() - 1, 8, 0, 9, 8);
         }
-        minecraft.font.draw(matrices, this.getMessage().getString(), this.x + 12, this.y, 0xFFFFFF);
+        minecraft.font.draw(matrices, this.getMessage().getString(), this.getX() + 12, this.getY(), 0xFFFFFF);
     }
 
     @Override
@@ -56,7 +56,6 @@ public class CheckBox extends AbstractWidget
     }
 
     @Override
-    public void updateNarration(NarrationElementOutput p_169152_) {
-
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
     }
 }

@@ -1,12 +1,12 @@
 package com.mrcrayfish.vehicle.client;
 
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.Config;
 import com.mrcrayfish.vehicle.client.util.MathUtil;
 import com.mrcrayfish.vehicle.common.Seat;
 import com.mrcrayfish.vehicle.entity.VehicleEntity;
 import com.mrcrayfish.vehicle.entity.properties.VehicleProperties;
+import com.mrcrayfish.vehicle.util.port.Quaternion;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.client.Camera;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -16,6 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.TransformationHelper;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import org.joml.Quaternionf;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -35,8 +36,8 @@ public class CameraHelper
     private static final Field LEFT_FIELD = ObfuscationReflectionHelper.findField(Camera.class, "f_90556_");
 
     private VehicleProperties properties;
-    private Quaternion currentRotation;
-    private Quaternion prevRotation;
+    private Quaternionf currentRotation;
+    private Quaternionf prevRotation;
     private float pitchOffset;
     private float yawOffset;
 
@@ -55,14 +56,14 @@ public class CameraHelper
         this.pitchOffset = 0F;
         this.yawOffset = 0F;
         this.currentRotation = new Quaternion(vehicle.getViewPitch(1F), -vehicle.getViewYaw(1F), vehicle.getViewRoll(1F), true);
-        this.prevRotation = new Quaternion(this.currentRotation);
+        this.prevRotation = new Quaternionf(this.currentRotation);
     }
 
     public void tick(VehicleEntity vehicle, CameraType pov)
     {
         float strength = this.getStrength(pov);
         this.prevRotation = this.currentRotation;
-        Quaternion quaternion = new Quaternion(0.0F, 0.0F, 0.0F, 1.0F);
+        Quaternionf quaternion = new Quaternionf(0.0F, 0.0F, 0.0F, 1.0F);
         quaternion.mul(Vector3f.YP.rotationDegrees(-vehicle.getViewYaw(1F) + (Config.CLIENT.debugCamera.get() ? this.debugOffsetYaw : 0F)));
         quaternion.mul(Vector3f.XP.rotationDegrees(vehicle.getViewPitch(1F) + (Config.CLIENT.debugCamera.get() ? this.debugOffsetPitch : 0F)));
         quaternion.mul(Vector3f.ZP.rotationDegrees(vehicle.getViewRoll(1F) + (Config.CLIENT.debugCamera.get() ? this.debugOffsetRoll : 0F)));
@@ -98,7 +99,7 @@ public class CameraHelper
                 Seat seat = this.properties.getSeats().get(index);
                 Vec3 eyePos = seat.getPosition().add(0, this.properties.getAxleOffset() + this.properties.getWheelOffset(), 0).scale(this.properties.getBodyTransform().getScale()).multiply(-1, 1, 1).add(this.properties.getBodyTransform().getTranslate()).scale(0.0625);
                 eyePos = eyePos.add(0, player.getMyRidingOffset() + player.getEyeHeight(), 0);
-                Vector3f rotatedEyePos = new Vector3f(eyePos);
+                Vector3f rotatedEyePos = new Vector3f((float) eyePos.z, (float) eyePos.y, (float) eyePos.z);
                 rotatedEyePos.transform(MathUtil.slerp(this.prevRotation, this.currentRotation, partialTicks));
                 float cameraX = (float) (Mth.lerp(partialTicks, vehicle.xo, vehicle.getX()) + rotatedEyePos.x());
                 float cameraY = (float) (Mth.lerp(partialTicks, vehicle.yo, vehicle.getY()) + rotatedEyePos.y());
@@ -124,7 +125,7 @@ public class CameraHelper
             if(Config.CLIENT.useVehicleAsFocusPoint.get() && !front)
             {
                 Vec3 position = this.properties.getCamera().getPosition();
-                Vector3f rotatedPosition = new Vector3f(position);
+                Vector3f rotatedPosition = new Vector3f((float) position.x, (float) position.y, (float) position.z);
                 if(Config.CLIENT.debugCamera.get()) rotatedPosition.add(this.debugOffsetX, this.debugOffsetY, this.debugOffsetZ);
                 rotatedPosition.transform(MathUtil.slerp(this.prevRotation, this.currentRotation, partialTicks));
                 float cameraX = (float) (Mth.lerp(partialTicks, vehicle.xo, vehicle.getX()) + rotatedPosition.x());
@@ -140,7 +141,7 @@ public class CameraHelper
                     Seat seat = this.properties.getSeats().get(index);
                     Vec3 eyePos = seat.getPosition().add(0, this.properties.getAxleOffset() + this.properties.getWheelOffset(), 0).scale(this.properties.getBodyTransform().getScale()).multiply(-1, 1, 1).add(this.properties.getBodyTransform().getTranslate()).scale(0.0625);
                     eyePos = eyePos.add(0, player.getMyRidingOffset() + player.getEyeHeight(), 0);
-                    Vector3f rotatedEyePos = new Vector3f(eyePos);
+                    Vector3f rotatedEyePos = new Vector3f((float) eyePos.z, (float) eyePos.y, (float) eyePos.z);
                     rotatedEyePos.transform(TransformationHelper.slerp(this.prevRotation, this.currentRotation, partialTicks));
                     float cameraX = (float) (Mth.lerp(partialTicks, vehicle.xo, vehicle.getX()) + rotatedEyePos.x());
                     float cameraY = (float) (Mth.lerp(partialTicks, vehicle.yo, vehicle.getY()) + rotatedEyePos.y());
@@ -162,7 +163,7 @@ public class CameraHelper
     {
         try
         {
-            Quaternion rotation = info.rotation();
+            Quaternionf rotation = info.rotation();
             rotation.set(0.0F, 0.0F, 0.0F, 1.0F);
 
             // Applies the vehicle's body rotations to the camera
@@ -183,7 +184,7 @@ public class CameraHelper
             rotation.mul(MathUtil.slerp(this.prevRotation, this.currentRotation, partialTicks));
 
             // Applies the player's pitch and yaw offset
-            Quaternion quaternion = new Quaternion(0.0F, 0.0F, 0.0F, 1.0F);
+            Quaternionf quaternion = new Quaternionf(0.0F, 0.0F, 0.0F, 1.0F);
 
             if(VehicleHelper.isThirdPersonFront())
             {
@@ -225,15 +226,15 @@ public class CameraHelper
             // Finally applies local rotations to the camera
             rotation.mul(quaternion);
 
-            Vector3f forward = info.getLookVector();
+            Vector3f forward = new Vector3f(info.getLookVector());
             forward.set(0.0F, 0.0F, 1.0F);
             forward.transform(rotation);
 
-            Vector3f up = info.getUpVector();
+            Vector3f up = new Vector3f(info.getUpVector());
             up.set(0.0F, 1.0F, 0.0F);
             up.transform(rotation);
 
-            Vector3f left = (Vector3f) LEFT_FIELD.get(info);
+            Vector3f left = new Vector3f((org.joml.Vector3f)LEFT_FIELD.get(info));
             left.set(1.0F, 0.0F, 0.0F);
             left.transform(rotation);
         }

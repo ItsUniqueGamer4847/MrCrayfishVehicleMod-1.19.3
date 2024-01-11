@@ -2,8 +2,6 @@ package com.mrcrayfish.vehicle.client.render.tileentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
 import com.mrcrayfish.vehicle.block.entity.FuelDrumBlockEntity;
 import com.mrcrayfish.vehicle.client.render.RenderTypes;
 import net.minecraft.client.Minecraft;
@@ -20,6 +18,8 @@ import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 
 /**
  * Author: MrCrayfish
@@ -52,7 +52,7 @@ public class FuelDrumRenderer implements BlockEntityRenderer<FuelDrumBlockEntity
         }
     }
 
-    private void drawFluidLabel(Font fontRendererIn, Quaternion rotation, FluidTank tank, PoseStack matrixStack, MultiBufferSource renderTypeBuffer)
+    private void drawFluidLabel(Font fontRendererIn, Quaternionf rotation, FluidTank tank, PoseStack matrixStack, MultiBufferSource renderTypeBuffer)
     {
         if(tank.getFluid().isEmpty())
             return;

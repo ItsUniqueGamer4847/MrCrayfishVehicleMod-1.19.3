@@ -1,8 +1,8 @@
 package com.mrcrayfish.vehicle.client.raytrace.data;
 
-import com.mojang.math.Matrix4f;
 import com.mrcrayfish.vehicle.client.raytrace.ITriangleList;
 import com.mrcrayfish.vehicle.client.raytrace.RayTraceFunction;
+import com.mrcrayfish.vehicle.util.port.Matrix4f;
 
 import javax.annotation.Nullable;
 
@@ -21,7 +21,7 @@ public abstract class RayTraceData
     {
         this.function = function;
         Matrix4f matrix = new Matrix4f();
-        matrix.setIdentity();
+        matrix.identity();
         this.matrix = matrix;
     }
 

@@ -163,10 +163,10 @@ public class VehicleCrateBlockEntity extends BlockEntitySynced
                     if(this.entity != null)
                     {
                         VehicleHelper.playSound(SoundEvents.ITEM_BREAK, this.worldPosition, 1.0F, 0.5F);
-                        List<SynchedEntityData.DataItem<?>> entryList = this.entity.getEntityData().getAll();
+                        List<SynchedEntityData.DataValue<?>> entryList = this.entity.getEntityData().getNonDefaultValues();
                         if(entryList != null)
                         {
-                            entryList.forEach(dataEntry -> this.entity.onSyncedDataUpdated(dataEntry.getAccessor()));
+                            entryList.forEach(dataEntry -> this.entity.onSyncedDataUpdated(dataEntry.serializer().createAccessor(dataEntry.id())));
                         }
                         if(this.entity instanceof VehicleEntity vehicleEntity)
                         {

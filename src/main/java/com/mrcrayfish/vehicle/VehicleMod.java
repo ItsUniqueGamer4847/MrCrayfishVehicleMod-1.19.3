@@ -1,5 +1,6 @@
 package com.mrcrayfish.vehicle;
 
+import com.mrcrayfish.vehicle.block.VehicleCrateBlock;
 import com.mrcrayfish.vehicle.client.model.ComponentManager;
 import com.mrcrayfish.vehicle.client.model.VehicleModels;
 import com.mrcrayfish.vehicle.common.CommonEvents;
@@ -17,8 +18,12 @@ import com.mrcrayfish.vehicle.entity.properties.PoweredProperties;
 import com.mrcrayfish.vehicle.entity.properties.TrailerProperties;
 import com.mrcrayfish.vehicle.entity.properties.VehicleProperties;
 import com.mrcrayfish.vehicle.init.*;
+import com.mrcrayfish.vehicle.item.SprayCanItem;
 import com.mrcrayfish.vehicle.network.PacketHandler;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -27,6 +32,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -38,6 +44,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Author: MrCrayfish
  */
@@ -45,15 +53,7 @@ import org.jetbrains.annotations.NotNull;
 public class VehicleMod
 {
     public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
-    public static final CreativeModeTab CREATIVE_TAB = new CreativeModeTab(Reference.MOD_ID)
-    {
-        @Override
-        @NotNull
-        public ItemStack makeIcon()
-        {
-            return new ItemStack(ModItems.IRON_SMALL_ENGINE.get());
-        }
-    };
+    public static CreativeModeTab CREATIVE_TAB;
 
     public VehicleMod()
     {
@@ -73,6 +73,8 @@ public class VehicleMod
         ModFluids.REGISTER.register(eventBus);
         eventBus.addListener(this::onCommonSetup);
         eventBus.addListener(this::onGatherData);
+        eventBus.addListener(this::registerCreativeModeTabs);
+        eventBus.addListener(this::addCreative);
         MinecraftForge.EVENT_BUS.register(new CommonEvents());
         MinecraftForge.EVENT_BUS.register(new ModCommands());
         MinecraftForge.EVENT_BUS.register(FluidNetworkHandler.instance());
@@ -99,12 +101,41 @@ public class VehicleMod
     private void onGatherData(GatherDataEvent event)
     {
         DataGenerator generator = event.getGenerator();
+        CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-        generator.addProvider(true, new LootTableGen(generator));
+        generator.addProvider(true, LootTableGen.create(generator.getPackOutput()));
         generator.addProvider(true, new RecipeGen(generator));
         generator.addProvider(true, new VehiclePropertiesGen(generator));
-        generator.addProvider(true, new FluidTagGen(generator, existingFileHelper));
-        generator.addProvider(true, new BlockTagGen(generator, existingFileHelper));
+        generator.addProvider(true, new FluidTagGen(event.getGenerator().getPackOutput(), provider, Reference.MOD_ID, existingFileHelper));
+        generator.addProvider(true, new BlockTagGen(event.getGenerator().getPackOutput(), provider, Reference.MOD_ID, existingFileHelper));
     }
+
+    private void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
+        CREATIVE_TAB = event.registerCreativeModeTab(new ResourceLocation(Reference.MOD_ID, "vehiclemodtab"),
+                builder -> builder.icon(() -> new ItemStack(ModItems.IRON_SMALL_ENGINE.get())).title(Component.literal("Vehicle Mod")));
+    }
+
+    private void addCreative(CreativeModeTabEvent.BuildContents event) {
+
+        ModItems.REGISTER.getEntries().forEach(item -> event.accept(new ItemStack(item.get())));
+
+        SprayCanItem sprayCan = ModItems.SPRAY_CAN.get();
+        ItemStack stack = new ItemStack(sprayCan);
+        sprayCan.refill(stack);
+        event.accept(stack);
+
+        VehicleCrateBlock.REGISTERED_CRATES.forEach(resourceLocation ->
+        {
+            CompoundTag blockEntityTag = new CompoundTag();
+            blockEntityTag.putString("vehicle", resourceLocation.toString());
+            blockEntityTag.putBoolean("creative", true);
+            CompoundTag itemTag = new CompoundTag();
+            itemTag.put("BlockEntityTag", blockEntityTag);
+            ItemStack stack2 = new ItemStack(ModBlocks.VEHICLE_CRATE.get());
+            stack2.setTag(itemTag);
+            event.accept(stack2);
+        });
+    }
+
 }

@@ -44,8 +44,8 @@ public class DoorButton extends IconButton
         super.renderButton(matrixStack, mouseX, mouseY, partialTicks);
         int backgroundColor = this.action.isOpen() ? 0xFFFFB64C : 0xFF941400;
         int foregroundColor = this.action.isOpen() ? 0xFFFFC54C : 0xFFBD2008;
-        fill(matrixStack, this.x + 3, this.y + this.height - 6, this.x + this.width - 3, this.y + this.height - 3, backgroundColor);
-        fill(matrixStack, this.x + 3, this.y + this.height - 6, this.x + this.width - 4, this.y + this.height - 4, foregroundColor);
+        fill(matrixStack, this.getX() + 3, this.getY() + this.height - 6, this.getX() + this.width - 3, this.getY() + this.height - 3, backgroundColor);
+        fill(matrixStack, this.getX() + 3, this.getY() + this.height - 6, this.getX() + this.width - 4, this.getY() + this.height - 4, foregroundColor);
     }
 
     @Override

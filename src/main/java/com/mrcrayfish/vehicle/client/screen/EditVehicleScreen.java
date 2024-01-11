@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Quaternion;
 import com.mrcrayfish.vehicle.client.render.AbstractVehicleRenderer;
 import com.mrcrayfish.vehicle.client.render.Axis;
 import com.mrcrayfish.vehicle.client.render.CachedVehicle;
@@ -24,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Arrays;
@@ -132,7 +132,7 @@ public class EditVehicleScreen extends AbstractContainerScreen<EditVehicleContai
                     matrixStack.translate(this.windowX + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseX - this.mouseClickedX : 0), 0, 0);
                     matrixStack.translate(0, this.windowY - (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseY - this.mouseClickedY : 0), 0);
 
-                    Quaternion quaternion = Axis.POSITIVE_X.rotationDegrees(20F);
+                    Quaternionf quaternion = Axis.POSITIVE_X.rotationDegrees(20F);
                     quaternion.mul(Axis.NEGATIVE_X.rotationDegrees(this.windowRotationY - (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseY - this.mouseClickedY : 0)));
                     quaternion.mul(Axis.POSITIVE_Y.rotationDegrees(this.windowRotationX + (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseX - this.mouseClickedX : 0)));
                     quaternion.mul(Axis.POSITIVE_Y.rotationDegrees(45F));

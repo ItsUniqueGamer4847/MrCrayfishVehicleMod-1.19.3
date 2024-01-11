@@ -2,11 +2,11 @@ package com.mrcrayfish.vehicle.client.handler;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.Config;
 import com.mrcrayfish.vehicle.client.CameraHelper;
 import com.mrcrayfish.vehicle.entity.VehicleEntity;
+import com.mrcrayfish.vehicle.util.port.Quaternion;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.Util;
 import net.minecraft.client.Camera;
 import net.minecraft.client.CameraType;
@@ -20,6 +20,7 @@ import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.joml.Quaternionf;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
@@ -213,10 +214,10 @@ public class CameraHandler
         matrixStack.mulPose(Vector3f.XP.rotationDegrees(-info.getXRot()));
 
         // Applies quaternion to rotate camera rather than euler angles
-        Quaternion rotation = info.rotation();
+        Quaternionf rotation = info.rotation();
         Quaternion quaternion = new Quaternion(rotation);
         quaternion.mul(Vector3f.YP.rotationDegrees(180F));
-        quaternion.conj();
+        quaternion.conjugate();
         matrixStack.mulPose(quaternion);
     }
 

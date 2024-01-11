@@ -2,7 +2,6 @@ package com.mrcrayfish.vehicle.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.client.model.ComponentManager;
 import com.mrcrayfish.vehicle.client.model.ComponentModel;
 import com.mrcrayfish.vehicle.client.model.VehicleModels;
@@ -16,6 +15,7 @@ import com.mrcrayfish.vehicle.entity.VehicleEntity;
 import com.mrcrayfish.vehicle.common.entity.Wheel;
 import com.mrcrayfish.vehicle.entity.properties.VehicleProperties;
 import com.mrcrayfish.vehicle.item.IDyeable;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.renderer.MultiBufferSource;

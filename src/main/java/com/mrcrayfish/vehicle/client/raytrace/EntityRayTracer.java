@@ -5,9 +5,6 @@ import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
-import com.mojang.math.Vector4f;
 import com.mrcrayfish.vehicle.Config;
 import com.mrcrayfish.vehicle.VehicleMod;
 import com.mrcrayfish.vehicle.client.event.VehicleRayTraceEvent;
@@ -22,6 +19,8 @@ import com.mrcrayfish.vehicle.network.PacketHandler;
 import com.mrcrayfish.vehicle.network.message.MessageInteractCosmetic;
 import com.mrcrayfish.vehicle.network.message.MessageInteractKey;
 import com.mrcrayfish.vehicle.network.message.MessagePickupVehicle;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
+import com.mrcrayfish.vehicle.util.port.Vector4f;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import net.minecraft.Util;
@@ -50,6 +49,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
@@ -298,7 +298,7 @@ public class EntityRayTracer
         float[] triangleNew = new float[9];
         for (int i = 0; i < 9; i += 3)
         {
-            Vector4f vec = new Vector4f(triangle[i], triangle[i + 1], triangle[i + 2], 1);
+            com.mrcrayfish.vehicle.util.port.Vector4f vec = new Vector4f(triangle[i], triangle[i + 1], triangle[i + 2], 1);
             vec.transform(matrix);
             triangleNew[i] = vec.x();
             triangleNew[i + 1] = vec.y();

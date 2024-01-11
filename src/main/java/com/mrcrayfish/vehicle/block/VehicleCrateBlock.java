@@ -65,22 +65,6 @@ public class VehicleCrateBlock extends RotatedEntityObjectBlock
     }
 
     @Override
-    public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> items)
-    {
-        REGISTERED_CRATES.forEach(resourceLocation ->
-        {
-            CompoundTag blockEntityTag = new CompoundTag();
-            blockEntityTag.putString("vehicle", resourceLocation.toString());
-            blockEntityTag.putBoolean("creative", true);
-            CompoundTag itemTag = new CompoundTag();
-            itemTag.put("BlockEntityTag", blockEntityTag);
-            ItemStack stack = new ItemStack(ModBlocks.VEHICLE_CRATE.get());
-            stack.setTag(itemTag);
-            items.add(stack);
-        });
-    }
-
-    @Override
     public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos)
     {
         return true;

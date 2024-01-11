@@ -2,7 +2,6 @@ package com.mrcrayfish.vehicle.client.handler;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.framework.common.data.SyncedEntityData;
 import com.mrcrayfish.posture.api.event.PlayerModelEvent;
 import com.mrcrayfish.vehicle.client.render.AbstractVehicleRenderer;
@@ -12,6 +11,7 @@ import com.mrcrayfish.vehicle.entity.LandVehicleEntity;
 import com.mrcrayfish.vehicle.entity.VehicleEntity;
 import com.mrcrayfish.vehicle.entity.properties.VehicleProperties;
 import com.mrcrayfish.vehicle.init.ModDataKeys;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;

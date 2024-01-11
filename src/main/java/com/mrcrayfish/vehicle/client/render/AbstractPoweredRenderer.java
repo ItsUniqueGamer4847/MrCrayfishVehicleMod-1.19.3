@@ -1,8 +1,6 @@
 package com.mrcrayfish.vehicle.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.client.model.ComponentModel;
 import com.mrcrayfish.vehicle.client.raytrace.EntityRayTracer;
 import com.mrcrayfish.vehicle.client.raytrace.RayTraceFunction;
@@ -14,6 +12,8 @@ import com.mrcrayfish.vehicle.common.entity.Wheel;
 import com.mrcrayfish.vehicle.entity.properties.PoweredProperties;
 import com.mrcrayfish.vehicle.entity.properties.VehicleProperties;
 import com.mrcrayfish.vehicle.item.IDyeable;
+import com.mrcrayfish.vehicle.util.port.Quaternion;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;

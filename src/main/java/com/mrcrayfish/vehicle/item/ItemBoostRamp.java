@@ -18,7 +18,7 @@ public class ItemBoostRamp extends BlockItem
 {
     public ItemBoostRamp(Block block)
     {
-        super(block, new Item.Properties().tab(VehicleMod.CREATIVE_TAB));
+        super(block, new Item.Properties());
     }
 
     @Override

@@ -76,13 +76,12 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.0.8'
+    minecraft 'net.minecraftforge:forge:1.19.3-44.1.23'
 
     //make a folder named 'libs' in the workspace directory and drop a build of my fork for posture needed to load into 1.19
-    implementation fg.deobf("com.mrcrayfish.posture:posture:1.0.0-1.19")
+    implementation files("libs/posture-1.19.3.jar")
+    implementation files("libs/framework-1.19.3.jar")
 
-    implementation fg.deobf("curse.maven:posture-${project.posture_project}:${project.posture_file}")
-    implementation fg.deobf("curse.maven:framework-${project.framework_project}:${project.framework_file}")
     implementation fg.deobf("curse.maven:controllable-${project.controllable_project}:${project.controllable_file}")
     implementation fg.deobf("curse.maven:configured-${project.configured_project}:${project.configured_file}")
     implementation fg.deobf("curse.maven:catalogue-${project.catalogue_project}:${project.catalogue_file}")

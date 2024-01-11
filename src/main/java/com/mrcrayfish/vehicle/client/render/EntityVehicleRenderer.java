@@ -2,7 +2,6 @@ package com.mrcrayfish.vehicle.client.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.Config;
 import com.mrcrayfish.vehicle.client.raytrace.EntityRayTracer;
 import com.mrcrayfish.vehicle.common.entity.Transform;
@@ -10,6 +9,7 @@ import com.mrcrayfish.vehicle.entity.EntityJack;
 import com.mrcrayfish.vehicle.entity.PoweredVehicleEntity;
 import com.mrcrayfish.vehicle.entity.VehicleEntity;
 import com.mrcrayfish.vehicle.entity.properties.VehicleProperties;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;

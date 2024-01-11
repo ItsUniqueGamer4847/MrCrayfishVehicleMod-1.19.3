@@ -78,7 +78,9 @@ public class CopyFluidTanks extends LootItemConditionalFunction
     @Override
     public LootItemFunctionType getType()
     {
-        return ModLootFunctions.COPY_FLUID_TANKS;
+        //return ModLootFunctions.COPY_FLUID_TANKS;
+        //TODO fix
+        return null;
     }
 
     public static CopyFluidTanks.Builder copyFluidTanks()

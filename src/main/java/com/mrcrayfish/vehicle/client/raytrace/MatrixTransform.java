@@ -1,8 +1,8 @@
 package com.mrcrayfish.vehicle.client.raytrace;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
+import com.mrcrayfish.vehicle.util.port.Matrix4f;
+import org.joml.Quaternionf;
 
 /**
  * Matrix transformation that corresponds to one of the three supported GL operations that might be performed on a rendered item part
@@ -14,7 +14,7 @@ public abstract class MatrixTransform
         return new Translate(x, y, z);
     }
 
-    public static MatrixTransform rotate(Quaternion quaternion)
+    public static MatrixTransform rotate(Quaternionf quaternion)
     {
         return new Rotation(quaternion);
     }
@@ -34,7 +34,7 @@ public abstract class MatrixTransform
      *
      * @param matrix matrix to construct this transformation to
      */
-    public abstract void transform(Matrix4f matrix);
+    public abstract void transform(com.mrcrayfish.vehicle.util.port.Matrix4f matrix);
 
     public static class Translate extends MatrixTransform
     {
@@ -48,19 +48,19 @@ public abstract class MatrixTransform
         }
 
         @Override
-        public void transform(Matrix4f matrix)
+        public void transform(com.mrcrayfish.vehicle.util.port.Matrix4f matrix)
         {
             PoseStack matrixStack = new PoseStack();
             matrixStack.translate(this.x, this.y, this.z);
-            matrix.multiply(matrixStack.last().pose());
+            matrix.mul(matrixStack.last().pose());
         }
     }
 
     public static class Rotation extends MatrixTransform
     {
-        private final Quaternion quaternion;
+        private final Quaternionf quaternion;
 
-        public Rotation(Quaternion quaternion)
+        public Rotation(Quaternionf quaternion)
         {
             this.quaternion = quaternion;
         }
@@ -93,7 +93,7 @@ public abstract class MatrixTransform
         }
 
         @Override
-        public void transform(Matrix4f matrix)
+        public void transform(com.mrcrayfish.vehicle.util.port.Matrix4f matrix)
         {
             PoseStack matrixStack = new PoseStack();
             matrixStack.scale(this.x, this.y, this.z);

@@ -25,7 +25,7 @@ public class Spacer extends AbstractWidget
     @Override
     public void renderButton(@NotNull PoseStack matrices, int mouseX, int mouseY, float partialTicks)
     {
-        Gui.fill(matrices, this.x + this.width / 2, this.y, this.x + this.width / 2 + 1, this.y + this.height, 0xFF888888);
+        Gui.fill(matrices, this.getX() + this.width / 2, this.getY(), this.getX() + this.width / 2 + 1, this.getY() + this.height, 0xFF888888);
     }
 
     @Override
@@ -41,6 +41,8 @@ public class Spacer extends AbstractWidget
     }
 
     @Override
-    public void updateNarration(@NotNull NarrationElementOutput output)
-    {}
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
+
+    }
+
 }

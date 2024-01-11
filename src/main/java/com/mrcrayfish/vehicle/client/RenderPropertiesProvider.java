@@ -2,7 +2,6 @@ package com.mrcrayfish.vehicle.client;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.Reference;
 import com.mrcrayfish.vehicle.client.render.util.ColorHelper;
 import net.minecraft.client.Camera;
@@ -16,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 public class RenderPropertiesProvider
 {

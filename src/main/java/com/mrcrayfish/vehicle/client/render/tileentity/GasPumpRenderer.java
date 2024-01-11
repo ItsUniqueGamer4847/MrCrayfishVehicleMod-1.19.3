@@ -3,8 +3,6 @@ package com.mrcrayfish.vehicle.client.render.tileentity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector4f;
 import com.mrcrayfish.vehicle.Config;
 import com.mrcrayfish.vehicle.block.GasPumpBlock;
 import com.mrcrayfish.vehicle.client.model.VehicleModels;
@@ -15,6 +13,7 @@ import com.mrcrayfish.vehicle.client.util.HermiteInterpolator;
 import com.mrcrayfish.vehicle.init.ModBlocks;
 import com.mrcrayfish.vehicle.block.entity.GasPumpBlockEntity;
 import com.mrcrayfish.vehicle.util.CollisionHelper;
+import com.mrcrayfish.vehicle.util.port.Vector4f;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -34,6 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
 
 import javax.annotation.Nullable;
 
@@ -201,8 +201,8 @@ public class GasPumpRenderer implements BlockEntityRenderer<GasPumpBlockEntity>
                 HermiteInterpolator.Result start = spline.get(i, percent);
                 HermiteInterpolator.Result end = spline.get(i, (double) (j + 1) / (double) segments);
 
-                Matrix4f startMatrix = new Matrix4f();
-                startMatrix.setIdentity();
+                com.mrcrayfish.vehicle.util.port.Matrix4f startMatrix = new com.mrcrayfish.vehicle.util.port.Matrix4f();
+                startMatrix.identity();
                 MatrixTransform.translate((float) start.getPoint().x(), (float) start.getPoint().y(), (float) start.getPoint().z()).transform(startMatrix);
                 if(i == 0 && j == 0)
                 {
@@ -215,8 +215,8 @@ public class GasPumpRenderer implements BlockEntityRenderer<GasPumpBlockEntity>
                     MatrixTransform.rotate(Axis.POSITIVE_X.rotationDegrees((float) Math.toDegrees(Math.asin(-start.getDir().normalize().y)))).transform(startMatrix);
                 }
 
-                Matrix4f endMatrix = new Matrix4f();
-                endMatrix.setIdentity();
+                com.mrcrayfish.vehicle.util.port.Matrix4f endMatrix = new com.mrcrayfish.vehicle.util.port.Matrix4f();
+                endMatrix.identity();
                 MatrixTransform.translate((float) end.getPoint().x, (float) end.getPoint().y, (float) end.getPoint().z).transform(endMatrix);
                 if(i == spline.getSize() - 2 && j == segments - 1)
                 {
@@ -229,8 +229,8 @@ public class GasPumpRenderer implements BlockEntityRenderer<GasPumpBlockEntity>
                     MatrixTransform.rotate(Axis.POSITIVE_X.rotationDegrees((float) Math.toDegrees(Math.asin(-end.getDir().normalize().y)))).transform(endMatrix);
                 }
 
-                Matrix4f startTemp = new Matrix4f(startMatrix);
-                Matrix4f endTemp = new Matrix4f(endMatrix);
+                com.mrcrayfish.vehicle.util.port.Matrix4f startTemp = new com.mrcrayfish.vehicle.util.port.Matrix4f(startMatrix);
+                com.mrcrayfish.vehicle.util.port.Matrix4f endTemp = new com.mrcrayfish.vehicle.util.port.Matrix4f(endMatrix);
                 Matrix4f parent = matrixStack.last().pose();
 
                 MatrixTransform.translate(diameter / 2, -diameter / 2, 0).transform(startTemp);

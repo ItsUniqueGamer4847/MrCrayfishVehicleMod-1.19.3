@@ -1,20 +1,21 @@
 package com.mrcrayfish.vehicle.client.entity;
 
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.common.entity.Transform;
 import com.mrcrayfish.vehicle.entity.VehicleEntity;
 import com.mrcrayfish.vehicle.entity.properties.VehicleProperties;
+import com.mrcrayfish.vehicle.util.port.Matrix4f;
+import com.mrcrayfish.vehicle.util.port.Quaternion;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 
 public interface IClientVehicleExtensions
 {
     static Matrix4f getTransformMatrix(VehicleEntity entity, float partialTicks)
     {
         Matrix4f matrix = new Matrix4f();
-        matrix.setIdentity();
-        matrix.multiply(Vector3f.YP.rotationDegrees(-entity.getBodyRotationYaw(partialTicks)));
-        matrix.multiply(Vector3f.XP.rotationDegrees(entity.getBodyRotationPitch(partialTicks)));
-        matrix.multiply(Vector3f.ZP.rotationDegrees(entity.getBodyRotationRoll(partialTicks)));
+        matrix.identity();
+        matrix.multiply((Quaternion) Vector3f.YP.rotationDegrees(-entity.getBodyRotationYaw(partialTicks)));
+        matrix.multiply((Quaternion)Vector3f.XP.rotationDegrees(entity.getBodyRotationPitch(partialTicks)));
+        matrix.multiply((Quaternion)Vector3f.ZP.rotationDegrees(entity.getBodyRotationRoll(partialTicks)));
 
         VehicleProperties properties = entity.getProperties();
         Transform bodyPosition = properties.getBodyTransform();

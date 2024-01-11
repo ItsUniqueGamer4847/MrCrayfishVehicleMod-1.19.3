@@ -16,6 +16,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -79,7 +80,8 @@ public class RenderObjectHelper
                 RenderType type = ModelBakery.DESTROY_TYPES.get(stage);
                 renderModel(pose, new SheetedDecalTextureGenerator(
                         MINECRAFT.renderBuffers().crumblingBufferSource().getBuffer(type),
-                        pose.pose(), pose.normal()), type, ItemStack.EMPTY, model, color, overlay, light);
+                        pose.pose(), pose.normal(), light), type, ItemStack.EMPTY, model, color, overlay, light);
+                //TODO maybe unsafe
             }
         }
         matrices.popPose();
@@ -96,11 +98,11 @@ public class RenderObjectHelper
 
                 if(stack.is(Items.TRIDENT) && tridentFlag)
                 {
-                    model = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation("minecraft:trident#inventory"));
+                    model = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(new ResourceLocation("minecraft:trident"), "inventory"));
                 }
                 else if (stack.is(Items.SPYGLASS))
                 {
-                    model = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation("minecraft:spyglass#inventory"));
+                    model = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(new ResourceLocation("minecraft:spyglass"), "inventory"));
                 }
 
                 model = ForgeHooksClient.handleCameraTransforms(matrices, model, transformType, leftHanded);

@@ -33,15 +33,15 @@ public class RecipeGen extends RecipeProvider
 {
     public RecipeGen(DataGenerator generator)
     {
-        super(generator);
+        super(generator.getPackOutput());
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer)
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer)
     {
         netheriteSmithing(consumer, ModItems.DIAMOND_ELECTRIC_ENGINE.get(), ModItems.NETHERITE_ELECTRIC_ENGINE.get());
 
-        ShapedRecipeBuilder.shaped(ModItems.DIAMOND_ELECTRIC_ENGINE::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.DIAMOND_ELECTRIC_ENGINE::get)
                 .pattern(" U ")
                 .pattern("UEU")
                 .pattern(" U ")
@@ -51,7 +51,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_gold_electric_engine", has(ModItems.GOLD_ELECTRIC_ENGINE.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.GOLD_ELECTRIC_ENGINE::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.GOLD_ELECTRIC_ENGINE::get)
                 .pattern(" U ")
                 .pattern("UEU")
                 .pattern(" U ")
@@ -61,7 +61,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_iron_electric_engine", has(ModItems.IRON_ELECTRIC_ENGINE.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.IRON_ELECTRIC_ENGINE::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.IRON_ELECTRIC_ENGINE::get)
                 .pattern("IRI")
                 .pattern("TBT")
                 .pattern("IPI")
@@ -79,7 +79,7 @@ public class RecipeGen extends RecipeProvider
 
         netheriteSmithing(consumer, ModItems.DIAMOND_SMALL_ENGINE.get(), ModItems.NETHERITE_SMALL_ENGINE.get());
 
-        ShapedRecipeBuilder.shaped(ModItems.DIAMOND_SMALL_ENGINE::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.DIAMOND_SMALL_ENGINE::get)
                 .pattern(" U ")
                 .pattern("UEU")
                 .pattern(" U ")
@@ -89,7 +89,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_gold_small_engine", has(ModItems.GOLD_SMALL_ENGINE.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.GOLD_SMALL_ENGINE::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.GOLD_SMALL_ENGINE::get)
                 .pattern(" U ")
                 .pattern("UEU")
                 .pattern(" U ")
@@ -99,7 +99,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_iron_small_engine", has(ModItems.IRON_SMALL_ENGINE.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.IRON_SMALL_ENGINE::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.IRON_SMALL_ENGINE::get)
                 .pattern("IRI")
                 .pattern("PFP")
                 .pattern("IRI")
@@ -116,7 +116,7 @@ public class RecipeGen extends RecipeProvider
 
         netheriteSmithing(consumer, ModItems.DIAMOND_LARGE_ENGINE.get(), ModItems.NETHERITE_LARGE_ENGINE.get());
 
-        ShapedRecipeBuilder.shaped(ModItems.DIAMOND_LARGE_ENGINE::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.DIAMOND_LARGE_ENGINE::get)
                 .pattern(" U ")
                 .pattern("UEU")
                 .pattern(" U ")
@@ -126,7 +126,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_gold_large_engine", has(ModItems.GOLD_LARGE_ENGINE.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.GOLD_LARGE_ENGINE::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.GOLD_LARGE_ENGINE::get)
                 .pattern(" U ")
                 .pattern("UEU")
                 .pattern(" U ")
@@ -136,7 +136,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_iron_large_engine", has(ModItems.IRON_LARGE_ENGINE.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.IRON_LARGE_ENGINE::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.IRON_LARGE_ENGINE::get)
                 .pattern("BRB")
                 .pattern("PFP")
                 .pattern("IRI")
@@ -153,7 +153,7 @@ public class RecipeGen extends RecipeProvider
                 .save(consumer);
 
         //TODO eventually add a battery component item
-        ShapedRecipeBuilder.shaped(ModBlocks.FLUID_EXTRACTOR.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FLUID_EXTRACTOR.get())
                 .pattern("III")
                 .pattern("GPR")
                 .pattern("IEI")
@@ -170,7 +170,7 @@ public class RecipeGen extends RecipeProvider
                 .save(consumer);
 
         //TODO eventually add a battery component item
-        ShapedRecipeBuilder.shaped(ModBlocks.FLUID_MIXER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FLUID_MIXER.get())
                 .pattern("III")
                 .pattern("HRH")
                 .pattern("IEI")
@@ -184,7 +184,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_engine", has(ModItems.IRON_ELECTRIC_ENGINE.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.FLUID_PIPE.get(), 8)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FLUID_PIPE.get(), 8)
                 .pattern("IRI")
                 .pattern("GGG")
                 .pattern("III")
@@ -196,7 +196,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_glass_pane", has(Tags.Items.GLASS_PANES))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.FLUID_PUMP.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FLUID_PUMP.get(), 2)
                 .pattern("IRI")
                 .pattern("GDG")
                 .pattern("IHI")
@@ -212,7 +212,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_hopper", has(Items.HOPPER))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.FUEL_DRUM.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FUEL_DRUM.get())
                 .pattern("III")
                 .pattern("PBP")
                 .pattern("III")
@@ -224,7 +224,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_panel", has(ModItems.PANEL.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.INDUSTRIAL_FUEL_DRUM.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.INDUSTRIAL_FUEL_DRUM.get())
                 .pattern("III")
                 .pattern("IFI")
                 .pattern("III")
@@ -234,7 +234,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_fuel_drum", has(ModBlocks.FUEL_DRUM.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.GAS_PUMP.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.GAS_PUMP.get())
                 .pattern("IRI")
                 .pattern("GPG")
                 .pattern("IFI")
@@ -250,7 +250,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_gold_ingot", has(Tags.Items.INGOTS_GOLD))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.HAMMER::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.HAMMER::get)
                 .pattern("III")
                 .pattern(" G ")
                 .pattern(" W ")
@@ -262,7 +262,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_black_wool", has(Items.BLACK_WOOL))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.WRENCH::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.WRENCH::get)
                 .pattern("I")
                 .pattern("G")
                 .pattern("W")
@@ -274,7 +274,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_black_wool", has(Items.BLACK_WOOL))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.JERRY_CAN::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.JERRY_CAN::get)
                 .pattern("III")
                 .pattern("IDI")
                 .pattern("III")
@@ -284,7 +284,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_purple_dye", has(Tags.Items.DYES_PURPLE))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.INDUSTRIAL_JERRY_CAN::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.INDUSTRIAL_JERRY_CAN::get)
                 .pattern("III")
                 .pattern("IJI")
                 .pattern("III")
@@ -294,7 +294,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_jerry_can", has(ModItems.JERRY_CAN.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.JACK.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.JACK.get())
                 .pattern("IPI")
                 .pattern("IRI")
                 .define('I', Tags.Items.INGOTS_GOLD)
@@ -305,7 +305,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.KEY::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.KEY::get)
                 .pattern("WII")
                 .define('W', Items.BLACK_WOOL)
                 .define('I', Tags.Items.INGOTS_GOLD)
@@ -313,14 +313,14 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.PANEL::get, 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.PANEL::get, 2)
                 .pattern("III")
                 .pattern("III")
                 .define('I', Tags.Items.NUGGETS_IRON)
                 .unlockedBy("has_iron_nugget", has(Tags.Items.NUGGETS_IRON))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.TRAFFIC_CONE.get(), 8)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TRAFFIC_CONE.get(), 8)
                 .pattern("O")
                 .pattern("W")
                 .pattern("O")
@@ -330,7 +330,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_white_concrete", has(Items.WHITE_CONCRETE))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.WORKSTATION.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.WORKSTATION.get())
                 .pattern("III")
                 .pattern("GCG")
                 .pattern("GGG")
@@ -342,7 +342,7 @@ public class RecipeGen extends RecipeProvider
                 .unlockedBy("has_crafting_table", has(Items.CRAFTING_TABLE))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.SPRAY_CAN::get)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SPRAY_CAN::get)
                 .pattern("IDI")
                 .pattern("IWI")
                 .pattern("III")
@@ -388,8 +388,8 @@ public class RecipeGen extends RecipeProvider
 
     protected static void netheriteSmithing(Consumer<FinishedRecipe> consumer, Item inputItem, Item resultItem)
     {
-        ResourceLocation id = Registry.ITEM.getKey(resultItem.asItem());
-        UpgradeRecipeBuilder.smithing(Ingredient.of(inputItem), Ingredient.of(Items.NETHERITE_INGOT), resultItem)
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(resultItem.asItem());
+        UpgradeRecipeBuilder.smithing(Ingredient.of(inputItem), Ingredient.of(Items.NETHERITE_INGOT), RecipeCategory.MISC, resultItem)
                 .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
                 .save(consumer, new ResourceLocation(id.getNamespace(), id.getPath() + "_smithing"));
     }

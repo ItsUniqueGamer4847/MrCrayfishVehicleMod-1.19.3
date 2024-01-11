@@ -1,7 +1,5 @@
 package com.mrcrayfish.vehicle.entity;
 
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.client.VehicleHelper;
 import com.mrcrayfish.vehicle.common.SurfaceHelper;
 import com.mrcrayfish.vehicle.common.entity.Transform;
@@ -12,6 +10,8 @@ import com.mrcrayfish.vehicle.network.PacketHandler;
 import com.mrcrayfish.vehicle.network.datasync.VehicleDataValue;
 import com.mrcrayfish.vehicle.network.message.MessagePlaneInput;
 import com.mrcrayfish.vehicle.util.CommonUtils;
+import com.mrcrayfish.vehicle.util.port.Quaternion;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -113,7 +113,8 @@ public abstract class PlaneEntity extends PoweredVehicleEntity
         this.elevatorAngle += ((this.getMaxElevatorAngle() * this.getLift()) - this.elevatorAngle) * this.getElevatorStrength();
 
         // Adds delta pitch and yaw to the plane based on the flaps and roll of the plane
-        Vector3f elevatorDirection = new Vector3f(Vec3.directionFromRotation(this.elevatorAngle * elevatorForce * this.getElevatorSensitivity(), 0));
+        Vec3 vec = Vec3.directionFromRotation(this.elevatorAngle * elevatorForce * this.getElevatorSensitivity(), 0);
+        Vector3f elevatorDirection = new Vector3f((float) vec.x, (float) vec.y, (float) vec.z);
         elevatorDirection.transform(new Quaternion(Vector3f.ZP, this.planeRoll.get(this), true));
         this.xRot += CommonUtils.pitch(elevatorDirection);
 

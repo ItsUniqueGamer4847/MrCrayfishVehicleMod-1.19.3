@@ -2,7 +2,6 @@ package com.mrcrayfish.vehicle.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
 import com.mrcrayfish.vehicle.client.render.RenderTypes;
 import com.mrcrayfish.vehicle.client.render.util.ColorHelper;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -25,6 +24,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.joml.Matrix4f;
 
 import java.util.EnumMap;
 
@@ -60,10 +60,10 @@ public class FluidUtils
                 long green = 0;
                 long blue = 0;
 
-                int area = sprite.getWidth() * sprite.getHeight();
+                int area = sprite.contents().width() * sprite.contents().height();
 
-                int maxX = sprite.getWidth();
-                int maxY = sprite.getHeight();
+                int maxX = sprite.contents().width();
+                int maxY = sprite.contents().height();
 
                 int prevRed, prevGreen, prevBlue;
                 for(int y = 0; y < maxY; y++)

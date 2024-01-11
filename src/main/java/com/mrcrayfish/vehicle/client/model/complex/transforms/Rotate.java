@@ -6,13 +6,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.client.raytrace.MatrixTransform;
 import com.mrcrayfish.vehicle.client.model.complex.value.Dynamic;
 import com.mrcrayfish.vehicle.client.model.complex.value.IValue;
 import com.mrcrayfish.vehicle.client.model.complex.value.Static;
 import com.mrcrayfish.vehicle.entity.VehicleEntity;
+import com.mrcrayfish.vehicle.util.port.Quaternion;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 
 /**
  * Author: MrCrayfish

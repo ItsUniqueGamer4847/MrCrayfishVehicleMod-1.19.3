@@ -1,7 +1,7 @@
 package com.mrcrayfish.vehicle.util;
 
-import com.mojang.math.Vector3f;
 import com.mrcrayfish.vehicle.Config;
+import com.mrcrayfish.vehicle.util.port.Vector3f;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

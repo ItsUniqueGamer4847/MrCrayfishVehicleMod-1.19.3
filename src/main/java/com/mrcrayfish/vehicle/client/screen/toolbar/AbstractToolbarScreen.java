@@ -8,7 +8,7 @@ import com.mrcrayfish.vehicle.client.screen.toolbar.widget.IconButton;
 import com.mrcrayfish.vehicle.client.screen.toolbar.widget.Spacer;
 import com.mrcrayfish.vehicle.util.CommonUtils;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -63,8 +63,8 @@ public abstract class AbstractToolbarScreen extends Screen
         for(int i = 0; i < widgets.size(); i++)
         {
             AbstractWidget widget = widgets.get(i);
-            widget.x = startX + 4 + 2 + offset;
-            widget.y = startY + 4 + 2;
+            widget.setX(startX + 4 + 2 + offset);
+            widget.setY(startY + 4 + 2);
             offset += widget.getWidth() + 2;
             this.addRenderableWidget(widget);
         }
@@ -90,11 +90,14 @@ public abstract class AbstractToolbarScreen extends Screen
         super.render(matrixStack, mouseX, mouseY, partialTicks);
 
         AbstractWidget hoveredWidget = null;
-        for(Widget widget : this.renderables)
+        for(Renderable widget : this.renderables)
         {
+            if(!(widget instanceof AbstractWidget))
+                break;
+
             AbstractWidget abstractWidget = (AbstractWidget) widget;
 
-            if(CommonUtils.isMouseWithin(mouseX, mouseY, abstractWidget.x, abstractWidget.y, abstractWidget.getWidth(), abstractWidget.getHeight()))
+            if(CommonUtils.isMouseWithin(mouseX, mouseY, abstractWidget.getX(), abstractWidget.getY(), abstractWidget.getWidth(), abstractWidget.getHeight()))
             {
                 hoveredWidget = abstractWidget;
                 break;
